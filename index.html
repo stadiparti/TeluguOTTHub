@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telugu OTT Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4001639659363898" crossorigin="anonymous"></script>
+   
+   <style>
+        .movie-card {
+            transition: transform 0.3s ease;
+        }
+        .movie-card:hover {
+            transform: scale(1.05);
+        }
+        .swiper-container {
+            width: 100%;
+            height: 60vh;
+        }
+        .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            overflow: hidden;
+        }
+        .poster img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            object-fit: cover;
+        }
+        .left-content, .right-content {
+            flex: 1;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .swiper-slide {
+                flex-direction: column;
+            }
+            .left-content, .right-content {
+                width: 100%;
+                text-align: center;
+            }
+            .poster img {
+                max-width: 80%;
+            }
+            .swiper-wrapper {
+                display: block;
+            }
+            .swiper-container {
+                height: 80vh;
+            }
+            .swiper-slide {
+                padding: 10px;
+            }
+            .poster img {
+                max-width: 200px;
+            }
+            .slide-content h2 {
+                font-size: 1.5rem;
+            }
+            .slide-content p {
+                font-size: 0.9rem;
+            }
+        }
+        @media (min-width: 769px) {
+            .swiper-slide {
+                flex-direction: row;
+            }
+            .left-content {
+                text-align: right;
+            }
+            .right-content {
+                text-align: left;
+            }
+        }
+        .swiper-slide img {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .swiper-slide .content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            color: white;
+            text-align: left;
+        }
+        .filter-panel {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 20px;
+            height: fit-content;
+            position: relative;
+            z-index: 100;
+        }
+        .filter-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .filter-option:hover {
+            background-color: #333;
+        }
+        @media (max-width: 768px) {
+            .filter-panel {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                height: 100%;
+                width: 80%;
+                padding: 10px;
+                transition: left 0.3s ease-in-out;
+                overflow-y: auto;
+            }
+            .filter-panel.open {
+                left: 0;
+            }
+            .filter-toggle-btn {
+                position: fixed;
+                bottom: 200px;
+                right: 10px;
+                background-color: #ff6b35;
+                color: white;
+                padding: 10px 15px;
+                border-radius: 5px;
+                z-index: 110;
+                cursor: pointer;
+            }
+            .filter-option {
+                padding: 8px;
+            }
+            .filter-option label {
+                margin-right: 8px;
+            }
+            .filter-option i {
+                font-size: 1rem;
+            }
+        }
+        @media (min-width: 769px) {
+            .filter-toggle-btn {
+                display: none;
+            }
+        }
+        .ad-container {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .ad-container::before {
+            content: 'Advertisement';
+            display: block;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        @media (max-width: 768px) {
+            .ad-container {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <header class="bg-black py-4 px-4 md:px-6">
+        <nav class="flex justify-between items-center">
+            <div class="text-xl md:text-2xl font-bold text-orange-500">TeluguOTT</div>
+            <div class="space-x-4 md:space-x-6 hidden md:block">
+                <a href="#" class="hover:text-orange-500">Home</a>
+                <a href="#" class="hover:text-orange-500">TV Shows</a>
+                <a href="#" class="hover:text-orange-500">Movies</a>
+                <a href="#" class="hover:text-orange-500">Web Series</a>
+            </div>
+            <div class="flex items-center space-x-2 md:space-x-4">
+                <input type="text" placeholder="Search" class="bg-gray-800 px-2 md:px-3 py-1 rounded text-white w-24 md:w-auto">
+                <button class="bg-orange-500 text-white px-3 py-1 md:px-4 md:py-2 rounded">Subscribe</button>
+                <button class="text-white"><i class="fas fa-user-circle text-xl md:text-2xl"></i></button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto mt-4 md:mt-8 px-4">
+        <!-- Swiper Section -->
+        <section class="mb-8 md:mb-12">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    {% for movie in released_movies[:6] %}
+                    <div class="swiper-slide flex flex-col md:flex-row items-center justify-center" style="overflow: hidden;">
+                        <div class="left-content w-full md:w-1/3 p-4 md:pr-8 text-center md:text-right">
+                            <h2 class="text-2xl md:text-4xl font-bold mb-1 md:mb-2">{{ movie.title }}</h2>
+                            <p class="text-lg md:text-xl mb-2">Release Date: {{ movie.release_date }}</p>
+                            <button class="bg-orange-500 text-white px-4 py-1 md:px-6 md:py-2 rounded-full" onclick="openIMDbPopup('{{ movie.imdb_url }}')">
+                                {{ movie.platform }}
+                            </button>
+                        </div>
+                        <div class="poster w-full md:w-1/3 text-center">
+                            <img src="{{ movie.imdb_poster if movie.imdb_poster and movie.imdb_poster != 'N/A' else 'https://via.placeholder.com/500x750.png?text=' + movie.title|urlencode }}" 
+                                 alt="{{ movie.title }}" 
+                                 class="swiper-lazy w-full md:w-3/4 object-cover">
+                        </div>
+                        <div class="right-content w-full md:w-1/3 p-4 md:pl-8 text-center md:text-left">
+                            <p class="text-lg md:text-xl mb-2">Director: {{ movie.imdb_director }}</p>
+                            <p class="text-lg md:text-xl mb-2">Actors: {{ movie.imdb_actors }}</p>
+                            <p class="text-base md:text-lg mb-4">Plot: {{ movie.imdb_plot }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </section>
+
+        <!-- Main Content Area -->
+        <div class="flex flex-col md:flex-row gap-4 md:gap-8">
+            <!-- Filter Panel -->
+            <button class="filter-toggle-btn md:hidden" onclick="toggleFilter()">Filter</button>
+            <aside class="filter-panel" id="filterPanel">
+                <h2 class="text-xl font-semibold mb-4">Filter by Platform</h2>
+                <ul>
+                    <li class="mb-2 filter-option">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" class="form-checkbox h-5 w-5 text-orange-500" value="all" checked>
+                            <span class="ml-2">All</span>
+                        </label>
+                    </li>
+                    {% set platforms = ['Netflix', 'Amazon Prime', 'Disney+ Hotstar', 'Aha', 'ZEE5', 'SonyLIV'] %}
+                    {% for platform in platforms %}
+                    <li class="mb-2 filter-option">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" class="form-checkbox h-5 w-5 text-orange-500 platform-checkbox" value="{{ platform }}">
+                            <span class="ml-2">{{ platform }}</span>
+                        </label>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <!-- Vertical Google Ad -->
+                <div class="ad-container mt-8">
+                    <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-4001639659363898"
+                    data-ad-slot="5678491293"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+               <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+               </script>
+                </div>
+                <!-- Multiple Ads -->
+        <div class="ads-column space-y-4">
+            <!-- Ad 1 -->
+            <div class="ad-container mt-8">
+                <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-4001639659363898"
+                data-ad-slot="5678491293"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+           <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+           </script>
+            </div>
+
+            <!-- Ad 2 -->
+            <div class="ad-container bg-gray-800 rounded-lg p-4">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_ADSENSE_CLIENT_ID"
+                     data-ad-slot="YOUR_AD_SLOT_ID_2"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <!-- Ad 3 -->
+            <div class="ad-container bg-gray-800 rounded-lg p-4">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-YOUR_ADSENSE_CLIENT_ID"
+                     data-ad-slot="YOUR_AD_SLOT_ID_3"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+            </aside>
+            
+            <!-- Movie Sections -->
+            <div class="md:w-3/4 lg:w-4/5">
+                <!-- Coming Soon Section -->
+                <section class="mb-8 md:mb-12">
+                    <h2 class="text-xl md:text-2xl font-semibold mb-4">Coming Soon</h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        {% for movie in upcoming_movies %}
+                            {% if loop.index0 % 4 == 3 %}
+                                <div class="ad-container">
+                                    <ins class="adsbygoogle"
+                                         style="display:block"
+                                         data-ad-client="ca-pub-YOUR_ADSENSE_CLIENT_ID"
+                                         data-ad-slot="YOUR_AD_SLOT_ID"
+                                         data-ad-format="auto"
+                                         data-full-width-responsive="true"></ins>
+                                    <script>
+                                         (adsbygoogle = window.adsbygoogle || []).push({});
+                                    </script>
+                                </div>
+                            {% else %}
+                                <div class="movie-card bg-gray-800 rounded-lg overflow-hidden shadow-lg cursor-pointer" onclick="openIMDbPopup('{{ movie.imdb_url }}')">
+                                    <img src="{{ movie.imdb_poster if movie.imdb_poster and movie.imdb_poster != 'N/A' else 'https://via.placeholder.com/300x450.png?text=' + movie.title|urlencode }}" alt="{{ movie.title }}" class="w-full h-48 object-cover">
+                                    <div class="p-2">
+                                        <h3 class="font-bold text-sm mb-1">{{ movie.title }}</h3>
+                                        <p class="text-xs text-gray-400 mb-2">{{ movie.release_date }}</p>
+                                        <p class="text-xs text-gray-400 mb-2">{{ movie.imdb_actors }}</p>
+                                        <button class="bg-orange-500 text-white text-xs px-2 py-1 rounded-full w-full">
+                                            {{ movie.platform }}
+                                        </button>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </section>
+
+                <!-- Horizontal Ad Section -->
+                <section class="mb-8 md:mb-12">
+                    <div class="ad-container w-full">
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-4001639659363898"
+                        data-ad-slot="2866998262"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    </div>
+                </section>
+
+                <!-- All Releases Section -->
+                <section class="mb-8 md:mb-12">
+                    <h2 class="text-xl md:text-2xl font-semibold mb-4">All Releases</h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
+                        {% for row in range((released_movies|length / 3)|round(0, 'ceil')|int) %}
+                            {% set ad_position = range(4)|random %}
+                            {% for col in range(4) %}
+                                {% set movie_index = row * 3 + (col if col < ad_position else col - 1) %}
+                                {% if col == ad_position %}
+                                    <div class="ad-container">
+                                        <ins class="adsbygoogle"
+                                        style="display:block"
+                                        data-ad-client="ca-pub-4001639659363898"
+                                        data-ad-slot="3010268803"
+                                        data-ad-format="auto"
+                                        data-full-width-responsive="true"></ins>
+                                   <script>
+                                        (adsbygoogle = window.adsbygoogle || []).push({});
+                                   </script>
+                                    </div>
+                                {% elif movie_index < released_movies|length %}
+                                    {% set movie = released_movies[movie_index] %}
+                                    <div class="movie-card bg-gray-800 rounded-lg overflow-hidden shadow-lg cursor-pointer" onclick="openIMDbPopup('{{ movie.imdb_url }}')">
+                                        <img src="{{ movie.imdb_poster if movie.imdb_poster and movie.imdb_poster != 'N/A' else 'https://via.placeholder.com/300x450.png?text=' + movie.title|urlencode }}" alt="{{ movie.title }}" class="w-full h-48 object-cover">
+                                        <div class="p-2">
+                                            <h3 class="font-bold text-sm mb-1">{{ movie.title }}</h3>
+                                            <p class="text-xs text-gray-400 mb-2">{{ movie.release_date }}</p>
+                                            <p class="text-xs text-gray-400 mb-2">{{ movie.imdb_actors }}</p>
+                                            <button class="bg-orange-500 text-white text-xs px-2 py-1 rounded-full w-full">
+                                                {{ movie.platform }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 mt-12 py-8 text-center">
+        <p>&copy; 2024 TeluguOTT Hub. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        function openIMDbPopup(url) {
+            const width = 800;
+            const height = 600;
+            const left = (screen.width - width) / 2;
+            const top = (screen.height - height) / 2;
+            
+            window.open(
+                url, 
+                'IMDbPopup', 
+                `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes`
+            );
+        }
+
+        // Initialize Swiper
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            lazy: {
+                loadPrevNext: true,
+            },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            effect: 'fade',
+            fadeEffect: {
+                crossFade: true
+            },
+        });
+
+        // Filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const allCheckbox = document.querySelector('input[value="all"]');
+            const platformCheckboxes = document.querySelectorAll('.platform-checkbox');
+            const movieCards = document.querySelectorAll('.movie-card');
+
+            allCheckbox.addEventListener('change', function() {
+                platformCheckboxes.forEach(cb => {
+                    cb.checked = false;
+                    cb.disabled = this.checked;
+                });
+                filterMovies();
+            });
+
+            platformCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        allCheckbox.checked = false;
+                    }
+                    filterMovies();
+                });
+            });
+
+            function filterMovies() {
+                const selectedPlatforms = Array.from(platformCheckboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value);
+
+                movieCards.forEach(card => {
+                    const platform = card.querySelector('button').textContent.trim();
+                    if (allCheckbox.checked || selectedPlatforms.length === 0 || selectedPlatforms.includes(platform)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+        });
+
+        function toggleFilter() {
+            const filterPanel = document.getElementById('filterPanel');
+            filterPanel.classList.toggle('open');
+        }
+    </script>
+    <script>
+        function adjustAdsColumnHeight() {
+            const mainContent = document.querySelector('.md\\:w-3\\/4');
+            const adsColumn = document.querySelector('.ads-column');
+            if (mainContent && adsColumn) {
+                adsColumn.style.height = `${mainContent.offsetHeight}px`;
+            }
+        }
+    
+        window.addEventListener('load', adjustAdsColumnHeight);
+        window.addEventListener('resize', adjustAdsColumnHeight);
+    </script>
+</body>
+</html>
