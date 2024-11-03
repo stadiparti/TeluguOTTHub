@@ -185,7 +185,13 @@ def index():
     except Exception as e:
         logging.error(f"Error in index route: {e}", exc_info=True)
         return "An error occurred. Please check the server logs.", 500
-
+@app.route('/movie/<string:imdb_id>')
+def movie_details(imdb_id):
+    movie = next((m for m in movie_data.values() if m['imdb_id'] == imdb_id), None)
+    if movie is None:
+        return "Movie not found", 404
+    return render_template('movie_details.html', movie=movie)
+    
 @app.route('/api/movies')
 def api_movies():
     try:
