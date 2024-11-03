@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, abort
 import requests
 from bs4 import BeautifulSoup
 import csv
@@ -174,6 +174,7 @@ def categorize_movies(movies):
     featured_movies = sorted(featured_movies, key=lambda x: parse_rating(x.get('imdb_rating', '0')), reverse=True)[:5]
 
     return released_movies, upcoming_movies, featured_movies
+
 @app.route('/')
 def index():
     try:
@@ -185,11 +186,14 @@ def index():
     except Exception as e:
         logging.error(f"Error in index route: {e}", exc_info=True)
         return "An error occurred. Please check the server logs.", 500
+
 @app.route('/movie/<string:imdb_id>')
 def movie_details(imdb_id):
+    movies = scrape_ott_releases()
+    movie_data = update_movie_data(movies)
     movie = next((m for m in movie_data.values() if m['imdb_id'] == imdb_id), None)
     if movie is None:
-        return "Movie not found", 404
+        abort(404)
     return render_template('movie_details.html', movie=movie)
     
 @app.route('/api/movies')
